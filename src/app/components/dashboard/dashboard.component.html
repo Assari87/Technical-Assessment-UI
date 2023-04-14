@@ -1,0 +1,49 @@
+<app-loading-indicator *ngIf="inProgress"></app-loading-indicator>
+<div class="user-dashboard">
+
+    <div id="statistics" *ngIf="statistics">
+        <div class="row">
+            <div class="col-md-5 col-sm-5 col-xs-12 gutter">
+                <div class="sales">
+                    <h2>Total CPU</h2>
+                    <div>
+                        <div style="font-size: large;float: right;font-weight: bold;">
+                            {{statistics.sumCpu}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-7 col-xs-12 gutter">
+                <div class="sales report">
+                    <h2>Total RAM</h2>
+                    <div>
+                        <div style="font-size: large;float: right;font-weight: bold;">
+                            {{statistics.sumRam}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="filter">
+        <header>
+            <div class="col-md-12">
+                <div class="search hidden-xs hidden-sm">
+                    <form>
+                        <input type="text" placeholder="Search by Name and Status ..." id="search"
+                            [formControl]="searchFormControl">
+                    </form>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div id="data">
+        <div *ngFor="let asset of filteredAssetList; trackBy: trackByFn">
+            <a [routerLink]="['/dashboard/assets/', asset.id]">
+                <app-asset-item [asset]="asset"></app-asset-item>
+            </a>
+        </div>
+    </div>
+
+</div>

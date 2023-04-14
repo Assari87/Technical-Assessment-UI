@@ -1,0 +1,19 @@
+.loading {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: gray;
+    opacity: 0.5;
+    z-index: 10000;
+
+    span {
+        width: 100px;
+        text-align: center;
+        font-size: 30px;
+        margin-left: 50%;
+        margin-top: 200px;
+        vertical-align: middle;
+    }
+}

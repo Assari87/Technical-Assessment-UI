@@ -1,0 +1,26 @@
+.asset {
+    width: 18rem;
+    float: left;
+
+    img {
+        width: 150px;
+        margin: 0 auto;
+
+    }
+}
+
+.Running {
+    background-color: lightgreen;
+}
+
+.Stopped {
+    background-color: lightcoral;
+}
+
+.MigrationFailed {
+    background-color: orange;
+}
+
+.Unknown {
+    background-color: gray;
+}
