@@ -1,27 +1,52 @@
-# TechnicalAssessmentUi
+# Technical Assessment UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6.
+## Background
 
-## Development server
+A public JSON REST-API is available that returns a list of target assets from our postman mock server on the endpoint /targetAsset.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+> What is a target asset?
+> A target asset can be referred to as a remote system such as a hardware or virtual machine.
 
-## Code scaffolding
+For the purposes of this task, this API will be referred to as the "TargetAsset-API". A GET-request to that resource will return some sample data in the following format:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**REST-API:** https://adb47d56-1aa9-4aa7-8ec2-77a923b80a5b.mock.pstmn.io/targetasset
 
-## Build
+```javascript
+    {
+        "id": number,
+        "isStartable": boolean,
+        "location": string,
+        "owner": string,
+        "createdBy": string,
+        "name": string,
+        "status": string,
+        "tags": string[],
+        "cpu": number,
+        "ram": number,
+        "createdAt": string,
+        "parentId": number
+    }
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+You will create a simple target assets dashboard given by the above data. The user should be able to see all target assets in a minimal view (show only related data), search/filter target assets and see some nice statistics (e.g. total CPU, total Memory).
 
-## Running unit tests
+Following some general advice/tips:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Look and feel (UI/UX):** Do some basic UI stylings. But **don't** overdo it! You can also add any UI library you are comfortable with.
+- **State Management:** Apps need to manage state and react to state changes in order to provide an engaging user experience. 
+- **Unit testing:** Create a few meaningful unit tests. [Jest](https://jestjs.io/) is preinstalled and ready to use. But feel free to use any other test framework.
+- **Code quality:** We have a strong emphasis on the quality of our codebase, and as a team, we demand that you uphold this standard by employing both clean code principles and C# best practices in your code. These practices are highly valued in our organization and are critical to building maintainable, efficient, and scalable software solutions.
 
-## Running end-to-end tests
+## Tasks
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Create a new lazy-loaded `dashboard` module which is accessible by the route `/dashboard`. For simplicity, we want that all other routes are being redirected to this module.
+2. In this module, create a service, which fetches all target assets from the end point `/targetasset`.
 
-## Further help
+   > **Note:** Since we do not trust our fellow backend engineers to actually return the data in the correct format, remember to make use of Typescripts language features to make sure the data fits your applications needs.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+3. Render all target assets. You don't need to display all data. Just some important ones! [vCloud Example](https://thinfactory.com/wp-content/uploads/afbeelding-vcloud-director.jpg)
+4. Add a loading indicator when the data are being loaded.
+5. Use the target asset `status` property to highlight the target asset.
+6. Add an input field where the user is able to filter the target assets by the `name` and `status` property.
+7. Above the input field, add some nice statistics calculated by all target assets. e.g. Total of CPUs.
+8. Add a target asset details page. This page is accessible by the route `/dashboard/assets/{:id}`. List all information in a meaningful way. You might have noticed, the target assets are bound together in a hierarchical order via their `parentId` property. Use the `parentId` information to show the `name` of the parent target asset and create a hyperlink to get to the next target asset.
