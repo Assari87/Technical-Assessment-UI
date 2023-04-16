@@ -2,19 +2,18 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SideNavItemComponent } from './navigation/side-nav-item/side-nav-item.component';
+import { SideNavItemComponent as SideNavComponent } from './components/layout/side-nav-item/side-nav.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
-import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavItemComponent
+    SideNavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DashboardModule
+    DashboardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-asset-item-details',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssetItemDetailsComponent implements OnInit {
 
-  constructor() { }
+  assetId?: number;
+
+  constructor(private route: ActivatedRoute) { }
+
 
   ngOnInit(): void {
+    this.getIdParameter();
+  }
+
+  getIdParameter() {
+    this.route.params.subscribe((params: Params) => {
+      this.assetId = params['id'] ? params['id'] : null;
+
+      //if(this.assetId)
+    });
   }
 
 }

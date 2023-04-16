@@ -1,4 +1,4 @@
-export interface TargetAssetViewModel{
+export interface TargetAssetViewModel {
     id: number,
     isStartable: boolean,
     location: string,
@@ -10,5 +10,9 @@ export interface TargetAssetViewModel{
     cpu: number,
     ram: number,
     createdAt: string,
-    parentId: number
+    parentId: number,
+
+
+    parentName?: string
+
 }
