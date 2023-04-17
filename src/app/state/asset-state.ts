@@ -2,47 +2,64 @@ import { Action, NgxsOnInit, State, StateContext } from "@ngxs/store";
 import { TargetAssetViewModel } from "../models/target-asset-view-model";
 import { Injectable } from "@angular/core";
 import { TargetAccessService } from "../services/target-access.service";
-import { FetchAllAssetAction } from "./actions";
+import { FetchAllAssetAction, SelectAssetAction } from "./actions";
 
 export class AssetStateModel {
     inProgress: boolean;
     assetList: TargetAssetViewModel[];
+    selectedAsset: TargetAssetViewModel;
 }
 
 @State<AssetStateModel>({
     name: 'assets',
     defaults: {
         inProgress: false,
-        assetList: []
+        assetList: [],
+        selectedAsset: <TargetAssetViewModel>{}
     },
 })
 @Injectable()
-export class AssetState implements NgxsOnInit{
+export class AssetState implements NgxsOnInit {
     constructor(private targetAccessService: TargetAccessService) { }
-    
+
     ngxsOnInit(ctx: StateContext<AssetStateModel>): void {
-        ctx.dispatch(new FetchAllAssetAction());
     }
 
     @Action(FetchAllAssetAction)
-    FetchAllAsset(ctx: StateContext<AssetStateModel>) {
+    FetchAllAsset(ctx: StateContext<AssetStateModel>, { selectedAssetId }: FetchAllAssetAction) {
+        console.log("FetchAllAsset called." + selectedAssetId);
         const state = ctx.getState();
         ctx.setState({
             ...state,
-            inProgress:true
+            inProgress: true
         });
         this.targetAccessService.getAssetList()
             .subscribe((result) => {
                 ctx.setState({
                     ...state,
                     assetList: result?.filter(p => p != null),
-                    inProgress:false
+                    inProgress: false,
                 });
+
                 console.log("Fetch Completed.");
+                if (selectedAssetId)
+                    ctx.dispatch(new SelectAssetAction(selectedAssetId))
 
             });
+    }
 
-
+    @Action(SelectAssetAction)
+    FetchAssetById(ctx: StateContext<AssetStateModel>, { selectedAssetId }: SelectAssetAction) {
+        console.log("FetchAssetById called." + selectedAssetId);
+        const assets = ctx.getState()?.assetList;
+        if (assets) {
+            const asset = assets.find(a => a.id === selectedAssetId);
+            ctx.patchState({
+                selectedAsset: asset
+            });
+        }
+        else
+            ctx.dispatch(new FetchAllAssetAction(selectedAssetId));
     }
 }
 
