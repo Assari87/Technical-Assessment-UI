@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { TargetAssetViewModel } from 'src/app/models/target-asset-view-model';
-import { FetchAllAssetAction, SelectAssetAction } from 'src/app/state/actions';
+import { SelectAssetAction } from '../../state/SelectAssetAction';
 import { AssetStateModel } from 'src/app/state/asset-state';
 
 @Component({

@@ -2,7 +2,8 @@ import { Action, NgxsOnInit, State, StateContext } from "@ngxs/store";
 import { TargetAssetViewModel } from "../models/target-asset-view-model";
 import { Injectable } from "@angular/core";
 import { TargetAccessService } from "../services/target-access.service";
-import { FetchAllAssetAction, SelectAssetAction } from "./actions";
+import { SelectAssetAction } from "./SelectAssetAction";
+import { FetchAllAssetAction } from "./FetchAllAssetAction";
 
 export class AssetStateModel {
     inProgress: boolean;
@@ -27,6 +28,7 @@ export class AssetState implements NgxsOnInit {
 
     @Action(FetchAllAssetAction)
     FetchAllAsset(ctx: StateContext<AssetStateModel>, { selectedAssetId }: FetchAllAssetAction) {
+        this.targetAccessService.test();
         console.log("FetchAllAsset called." + selectedAssetId);
         const state = ctx.getState();
         ctx.setState({
@@ -42,6 +44,7 @@ export class AssetState implements NgxsOnInit {
                 });
 
                 console.log("Fetch Completed.");
+                console.log("Fetch assetsLength= " + result.length)
                 if (selectedAssetId)
                     ctx.dispatch(new SelectAssetAction(selectedAssetId))
 
@@ -52,8 +55,10 @@ export class AssetState implements NgxsOnInit {
     FetchAssetById(ctx: StateContext<AssetStateModel>, { selectedAssetId }: SelectAssetAction) {
         console.log("FetchAssetById called." + selectedAssetId);
         const assets = ctx.getState()?.assetList;
+        console.log("assetsLength= " + assets.length)
         if (assets) {
             const asset = assets.find(a => a.id === selectedAssetId);
+            console.log("asset is= " + asset?.id)
             ctx.patchState({
                 selectedAsset: asset
             });

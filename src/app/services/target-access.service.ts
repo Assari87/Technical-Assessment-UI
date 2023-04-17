@@ -23,5 +23,10 @@ export class TargetAccessService {
   }
 
 
+  test(){
+    console.log("mamad");
+  }
+
+
 
 }

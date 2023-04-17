@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AssetStateModel } from 'src/app/state/asset-state';
-import { FetchAllAssetAction } from 'src/app/state/actions';
+import { FetchAllAssetAction } from '../../state/FetchAllAssetAction';
 
 @Component({
   selector: 'app-dashboard',

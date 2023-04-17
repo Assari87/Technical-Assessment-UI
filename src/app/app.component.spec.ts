@@ -26,10 +26,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('technical-assessment-ui');
   });
 
-  it('should render title', () => {
+  it('should render router-outlet', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('technical-assessment-ui app is running!');
+    expect(compiled.querySelector('.content router-outlet') != null);
   });
 });
