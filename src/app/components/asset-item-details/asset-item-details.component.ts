@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { TargetAssetViewModel } from 'src/app/models/target-asset-view-model';
+import { FetchAllAssetAction, SelectAssetAction } from 'src/app/state/actions';
+import { AssetStateModel } from 'src/app/state/asset-state';
 
 @Component({
   selector: 'app-asset-item-details',
@@ -7,11 +12,14 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./asset-item-details.component.scss']
 })
 export class AssetItemDetailsComponent implements OnInit {
+  constructor(private route: ActivatedRoute, private store: Store) { }
 
+  assetInfo: TargetAssetViewModel;
   assetId?: number;
+  errorMessage: string;
+  inProgress = false;
 
-  constructor(private route: ActivatedRoute) { }
-
+  @Select() assets$: Observable<AssetStateModel>;
 
   ngOnInit(): void {
     this.getIdParameter();
@@ -19,9 +27,17 @@ export class AssetItemDetailsComponent implements OnInit {
 
   getIdParameter() {
     this.route.params.subscribe((params: Params) => {
-      this.assetId = params['id'] ? params['id'] : null;
+      this.assetId = params['id'] ? parseInt(params['id']) : null;
 
-      //if(this.assetId)
+      this.assets$.subscribe(response => {
+        if (response?.inProgress != undefined)
+          this.inProgress = response.inProgress;
+
+        this.assetInfo = response?.selectedAsset
+      });
+
+      this.store.dispatch(new SelectAssetAction(this.assetId));
+
     });
   }
 

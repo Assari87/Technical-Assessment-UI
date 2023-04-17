@@ -1,27 +1,11 @@
 .asset {
     width: 18rem;
     float: left;
-    height: 300px;
+    height: 400px;
 
     img {
         width: 150px;
         margin: 0 auto;
 
     }
-}
-
-.Running {
-    background-color: lightgreen;
-}
-
-.Stopped {
-    background-color: lightcoral;
-}
-
-.MigrationFailed {
-    background-color: orange;
-}
-
-.Unknown {
-    background-color: gray;
 }

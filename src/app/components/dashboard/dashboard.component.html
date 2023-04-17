@@ -3,22 +3,36 @@
 <div class="user-dashboard">
     <div id="statistics" *ngIf="statistics">
         <div class="row">
-            <div class="col-md-5 col-sm-5 col-xs-12 gutter">
-                <div class="sales">
-                    <h2>Total CPU</h2>
-                    <div>
-                        <div style="font-size: large;float: right;font-weight: bold;">
-                            {{statistics.sumCpu}}
+            <div class="col-md-6 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Total CPU</h5>
+                                <span class="h2 font-weight-bold mb-0">{{statistics.sumCpu}}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-7 col-sm-7 col-xs-12 gutter">
-                <div class="sales report">
-                    <h2>Total RAM</h2>
-                    <div>
-                        <div style="font-size: large;float: right;font-weight: bold;">
-                            {{statistics.sumRam}}
+            <div class="col-md-3 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Total RAM</h5>
+                                <span class="h2 font-weight-bold mb-0">{{statistics.sumRam}}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -26,24 +40,25 @@
         </div>
     </div>
 
-    <div id="filter">
-        <header>
-            <div class="col-md-12">
-                <div class="search hidden-xs hidden-sm">
-                    <form>
-                        <input type="text" placeholder="Search by Name and Status ..." id="search"
-                            [formControl]="searchFormControl">
-                    </form>
+    <div class="card mt-2">
+        <div class="card-body">
+            <div class="search hidden-xs hidden-sm">
+                <form>
+                    <div class="form-group">
+                        <input type="te" class="form-control" id="search" aria-describedby="emailHelp"
+                            placeholder="Search by Name and Status ..." [formControl]="searchFormControl">
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div *ngFor="let asset of filteredAssetList; trackBy: trackByFn">
+                    <a [routerLink]="['/dashboard/assets/', asset.id]">
+                        <app-asset-item [asset]="asset"></app-asset-item>
+                    </a>
                 </div>
             </div>
-        </header>
-    </div>
-    <div id="data">
-        <div *ngFor="let asset of filteredAssetList; trackBy: trackByFn">
-            <a [routerLink]="['/dashboard/assets/', asset.id]">
-                <app-asset-item [asset]="asset"></app-asset-item>
-            </a>
         </div>
     </div>
+
 
 </div>

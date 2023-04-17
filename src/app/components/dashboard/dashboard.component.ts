@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TargetAssetViewModel } from '../../models/target-asset-view-model';
 import { FormControl } from '@angular/forms';
-import { FetchAllAssetAction } from "../../state/actions";
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AssetState, AssetStateModel } from 'src/app/state/asset-state';
+import { AssetStateModel } from 'src/app/state/asset-state';
+import { FetchAllAssetAction } from 'src/app/state/actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,8 +13,7 @@ import { AssetState, AssetStateModel } from 'src/app/state/asset-state';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(
-    private store: Store) { }
+  constructor(private store: Store) { }
 
   statistics?: { sumCpu: number; sumRam: number };
   assetList: TargetAssetViewModel[] = [];
@@ -30,7 +29,7 @@ export class DashboardComponent implements OnInit {
       this.readData(response);
     });
 
-    //this.store.dispatch(new FetchAllAssetAction());
+    this.store.dispatch(new FetchAllAssetAction());
 
     this.searchFormControl.valueChanges.subscribe(_ => {
       this.filterAssetList();
