@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { TargetAssetViewModel } from 'src/app/models/target-asset-view-model';
@@ -12,7 +12,7 @@ import { AssetStateModel } from 'src/app/state/asset-state';
   styleUrls: ['./asset-item-details.component.scss']
 })
 export class AssetItemDetailsComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private store: Store) { }
+  constructor(private router: Router,private route: ActivatedRoute, private store: Store) { }
 
   assetInfo: TargetAssetViewModel;
   assetId?: number;
@@ -32,7 +32,7 @@ export class AssetItemDetailsComponent implements OnInit {
       this.assets$.subscribe(response => {
         if (response?.inProgress != undefined)
           this.inProgress = response.inProgress;
-
+        
         this.assetInfo = response?.selectedAsset
       });
 

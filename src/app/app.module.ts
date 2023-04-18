@@ -4,11 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideNavItemComponent as SideNavComponent } from './components/layout/side-nav-item/side-nav.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
+import { NotFoundComponent } from './generalComponent/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavComponent
+    SideNavComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

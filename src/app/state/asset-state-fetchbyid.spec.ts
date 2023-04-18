@@ -30,9 +30,12 @@ describe('AssetStateFetch', () => {
 
 
     it('it retuns asset by id', () => {
+        jest.spyOn(service, 'getAssetList').mockReturnValue(of(actualAssetList));
+        store.dispatch(new FetchAllAssetAction());
         store.dispatch(new SelectAssetAction(1));
         const asset = store.selectSnapshot(state => state.assets.selectedAsset);
-        console.log(asset)
+        
         expect(asset).toBeTruthy();
+        expect(asset.id).toBe(1);
     });
 });

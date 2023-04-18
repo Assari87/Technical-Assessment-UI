@@ -28,8 +28,7 @@ export class AssetState implements NgxsOnInit {
 
     @Action(FetchAllAssetAction)
     FetchAllAsset(ctx: StateContext<AssetStateModel>, { selectedAssetId }: FetchAllAssetAction) {
-        this.targetAccessService.test();
-        console.log("FetchAllAsset called." + selectedAssetId);
+        //console.log("FetchAllAsset called." + selectedAssetId);
         const state = ctx.getState();
         ctx.setState({
             ...state,
@@ -43,8 +42,8 @@ export class AssetState implements NgxsOnInit {
                     inProgress: false,
                 });
 
-                console.log("Fetch Completed.");
-                console.log("Fetch assetsLength= " + result.length)
+                //console.log("Fetch Completed.");
+                //console.log("Fetch assetsLength= " + result.length)
                 if (selectedAssetId)
                     ctx.dispatch(new SelectAssetAction(selectedAssetId))
 
@@ -53,12 +52,12 @@ export class AssetState implements NgxsOnInit {
 
     @Action(SelectAssetAction)
     FetchAssetById(ctx: StateContext<AssetStateModel>, { selectedAssetId }: SelectAssetAction) {
-        console.log("FetchAssetById called." + selectedAssetId);
+        //console.log("FetchAssetById called." + selectedAssetId);
         const assets = ctx.getState()?.assetList;
-        console.log("assetsLength= " + assets.length)
+        //console.log("assetsLength= " + assets?.length)
         if (assets) {
             const asset = assets.find(a => a.id === selectedAssetId);
-            console.log("asset is= " + asset?.id)
+            //console.log("asset is= " + asset?.id)
             ctx.patchState({
                 selectedAsset: asset
             });

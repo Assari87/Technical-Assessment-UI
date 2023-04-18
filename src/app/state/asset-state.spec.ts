@@ -41,6 +41,6 @@ describe('AssetState', () => {
         expect(asset.id).toBeUndefined();
         expect(assetList).toBeTruthy();
         expect(assetList.length).toEqual(actualAssetList.length - 1);
-        expect(assetList[0].id).toBe(1);
+        expect(assetList[0].id).toBe(123);
     });
 });
